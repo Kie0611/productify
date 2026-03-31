@@ -30,7 +30,8 @@ export const comments = pgTable("comments", {
     .references(() => users.id, { onDelete: "cascade" }),
   productId: uuid("product_id")
     .notNull()
-    .references(() => products.id,{ onDelete: "cascade" })
+    .references(() => products.id,{ onDelete: "cascade" }),
+  createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
 });
 
 export const usersRelations = relations(users, ({ many }) => ({
@@ -63,8 +64,8 @@ export const commentsRelations = relations(comments, ({ one }) => ({
 export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;
 
-export type Products = typeof products.$inferSelect;
-export type NewProducts = typeof products.$inferInsert;
+export type Product = typeof products.$inferSelect;
+export type NewProduct = typeof products.$inferInsert;
 
-export type Comments = typeof comments.$inferSelect;
-export type NewComments = typeof comments.$inferInsert;
+export type Comment = typeof comments.$inferSelect;
+export type NewComment = typeof comments.$inferInsert;
