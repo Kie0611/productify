@@ -61,7 +61,7 @@ export const getProductById = async (id: string) => {
 };
 
 export const getProductsByUserId = async (userId: string) => {
-  return db.query.products. findMany({
+  return db.query.products.findMany({
     where: eq(products.userId, userId),
     with: {
       user: true,
@@ -88,7 +88,7 @@ export const createComment = async (data: NewComment) => {
 }
 
 export const deleteComment = async (id: string) => {
-  const [comment] = await db.delete(comments).where(eq(products.id, id)).returning();
+  const [comment] = await db.delete(comments).where(eq(comments.id, id)).returning();
   return comment;
 }
 
