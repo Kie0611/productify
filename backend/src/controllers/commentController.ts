@@ -23,8 +23,8 @@ export async function createComment(req: Request<{productId: string}>, res: Resp
 
     res.status(200).json(comment);
   } catch (error) {
-    console.error("");
-    res.status(500).json({ error: ""})
+    console.error("Failed to create comment:", error);
+    return res.status(500).json({ error: "Failed to create comment" });
   }
 }
 
@@ -44,13 +44,14 @@ export async function deleteComment(req: Request<{commentId: string}>, res: Resp
 
     if(existingComment?.userId !== userId) {
       res.status(401).json({ error: "You can only delete your own comment" });
+      return;
     }
   
     await queries.deleteComment(commentId);
     res.status(200).json({ message: "Comment deleted successfulyy" });
   } catch (error) {
-    console.error("Failed to deleted comment:", error);
-    res.status(500).json({ error: ""})
+    console.error("Failed to delete comment:", error);
+    return res.status(500).json({ error: "Failed to delete comment" });
     
   }
 

@@ -30,9 +30,9 @@ export async function getProductById(req: Request<{id: string}>, res: Response) 
 export async function getMyProducts(req: Request, res: Response) {
   try {
     const { userId } = getAuth(req);
-    if(!userId) return res.status(200).json({ error: "Unauthorized"});
+    if(!userId) return res.status(401).json({ error: "Unauthorized"});
 
-    const products = queries.getProductsByUserId(userId);
+    const products = await queries.getProductsByUserId(userId);
     res.status(200).json(products);
   } catch (error) {
     console.error("Error getting user products:", error);
