@@ -16,7 +16,7 @@ export async function createComment(req: Request<{productId: string}>, res: Resp
 
 
     const comment = await queries.createComment({
-      content,
+      content: content.trim(),
       userId,
       productId,
     });
